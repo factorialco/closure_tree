@@ -4,8 +4,8 @@ module ClosureTree
     extend Forwardable
     def_delegators :model_class, :connection, :transaction, :table_name, :base_class, :inheritance_column, :column_names
 
-    def advisory_lock_name
-      Digest::SHA1.hexdigest("ClosureTree::#{base_class.name}")[0..32]
+    def advisory_lock_name(instance)
+      Digest::SHA1.hexdigest("ClosureTree::#{lock_name(instance)}")[0..32]
     end
 
     def quoted_table_name
@@ -26,6 +26,12 @@ module ClosureTree
 
     def primary_key_type
       primary_key_column.type
+    end
+
+    def lock_name(instance)
+      return base_class.name unless options[:lock_name]
+
+      options[:lock_name].call(instance)
     end
 
     def parent_column_name
