@@ -29,7 +29,7 @@ module ClosureTree
     end
 
     def lock_name(instance)
-      return base_class.name unless options[:lock_name]
+      return base_class.name if !instance || !options[:lock_name]
 
       options[:lock_name].call(instance)
     end

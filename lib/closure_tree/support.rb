@@ -104,7 +104,7 @@ module ClosureTree
       end
     end
 
-    def with_advisory_lock(instance, &block)
+    def with_advisory_lock(instance = nil, &block)
       if options[:with_advisory_lock]
         model_class.with_advisory_lock(advisory_lock_name(instance)) do
           transaction { yield }
