@@ -14,6 +14,8 @@ module ClosureTree
   autoload :DeterministicOrdering
   autoload :NumericDeterministicOrdering
   autoload :Configuration
+  autoload :HierarchyBuilder
+  autoload :NodeRelation
 
   def self.configure
     yield configuration
